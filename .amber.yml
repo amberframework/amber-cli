@@ -1,0 +1,5 @@
+---
+database: pg
+language: slang
+model: granite
+watch: {}

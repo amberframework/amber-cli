@@ -1,0 +1,28 @@
+type: app
+database: <%= @database %>
+language: <%= @language %>
+model: <%= @model %>
+watch:
+  server: # Required: the first command for this task is blocking
+    files:
+      - "src/**/*.cr"
+      - "src/**/*.<%= @language %>"
+      - "config/**/*.cr"
+    commands:
+      - "crystal build -o bin/<%= @name %> src/<%= @name %>.cr -p --no-color"
+      - "bin/<%= @name %>"
+
+  client: # Optional: these files changes trigger browser reloading
+    files:
+      - "public/**/*"
+    commands: []
+
+  webpack: # Optional: compiles assets using webpack
+    files: [] # webpack already manage this
+    commands:
+      - "npm install --loglevel=error"
+      - "npm run watch"
+
+  mytask: # Minimal valid task example
+    files: [] # Tasks with empty "files" execute "commands" just once.
+    commands: [] # Tasks with empty "commands" are ignored, except "client" task.
