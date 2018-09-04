@@ -2,6 +2,9 @@
 /lib/
 /bin/
 /.shards/
+/.tmp/
+.DS_Store/
+/tmp/
 *.dwarf
 
 # Libraries don't need dependency lock

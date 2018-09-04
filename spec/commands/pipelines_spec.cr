@@ -3,10 +3,10 @@ require "../cli_helper"
 
 require "cli/spec"
 
-include CLIHelper
+include AmberCLIHelper
 include Cli::Spec::Helper
 
-module CLI
+module AmberCLI
   extend Helpers
 
   describe "amber pipelines" do

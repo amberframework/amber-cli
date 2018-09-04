@@ -1,9 +1,9 @@
 require "../spec_helper"
 require "../cli_helper"
 
-include CLIHelper
+include AmberCLIHelper
 
-module CLI
+module AmberCLI
   describe "amber new #{TESTING_APP}" do
     cleanup
 

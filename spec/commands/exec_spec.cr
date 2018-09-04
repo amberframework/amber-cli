@@ -1,9 +1,9 @@
 require "../spec_helper"
 require "../cli_helper"
 
-include CLIHelper
+include AmberCLIHelper
 
-module CLI
+module AmberCLI
   describe "amber exec" do
     # context "within project" do
     #   cleanup
@@ -59,7 +59,7 @@ module CLI
       it "executes outside of project but without including project" do
         expected_result = ":hello\n"
         MainCommand.run(["exec", ":hello"])
-        logs = `ls tmp/*_console_result.log`.strip.split(/\s/).sort
+        logs = `ls ./tmp/*_console_result.log`.strip.split(/\s/).sort
         File.read(logs.last?.to_s).should eq expected_result
       end
 

@@ -1,3 +1,3 @@
-require "./cli"
+require "./amber_cli"
 
-CLI::MainCommand.run ARGV
+AmberCLI::MainCommand.run ARGV

@@ -2,18 +2,18 @@ require "../spec_helper"
 
 module Amber::Recipes
   describe Recipe do
-    recipe = "mydefault"
+    recipe = "./.tmp/default"
 
     describe "#can_generate?" do
       Spec.before_each do
-        Dir.mkdir_p("./mydefault/app")
-        Dir.mkdir_p("./mydefault/controller")
-        Dir.mkdir_p("./mydefault/model")
-        Dir.mkdir_p("./mydefault/scaffold")
+        Dir.mkdir_p("#{recipe}/app")
+        Dir.mkdir_p("#{recipe}/controller")
+        Dir.mkdir_p("#{recipe}/model")
+        Dir.mkdir_p("#{recipe}/scaffold")
       end
 
       Spec.after_each do
-        FileUtils.rm_rf("./mydefault")
+        FileUtils.rm_rf("#{recipe}")
       end
 
       it "should return true for default app" do

@@ -1,6 +1,6 @@
 require "file_utils"
 
-module CLIHelper
+module AmberCLIHelper
   BASE_ENV_PATH       = "./config/environments/"
   ENV_CONFIG_PATH     = "#{TESTING_APP}/config/environments/"
   CURRENT_ENVIRONMENT = ENV["AMBER_ENV"] ||= "test"
@@ -91,13 +91,13 @@ module CLIHelper
   end
 
   def recipe_app(app_name, *options)
-    CLI::MainCommand.run ["new", app_name] | options.to_a
+    AmberCLI::MainCommand.run ["new", app_name] | options.to_a
     Dir.cd(app_name)
     prepare_yaml(Dir.current)
   end
 
   def scaffold_app(app_name, *options)
-    CLI::MainCommand.run ["new", app_name] | options.to_a
+    AmberCLI::MainCommand.run ["new", app_name] | options.to_a
     Dir.cd(app_name)
     prepare_yaml(Dir.current)
   end

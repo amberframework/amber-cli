@@ -1,7 +1,7 @@
 require "./spec_helper"
 require "./support/helpers/cli_helper"
 
-include CLIHelper
+include AmberCLIHelper
 
 module Amber::CLI
   extend self
@@ -26,8 +26,8 @@ module Amber::CLI
     MainCommand.run ["generate", "channel", "Falcon"]
 
     prepare_yaml(Dir.current)
-    Amber::CLI.env = "test"
-    Amber::CLI.settings.logger = Amber::Environment::Logger.new(nil)
+    Amber::AmberCLI.env = "test"
+    Amber::AmberCLI.settings.logger = Amber::Environment::Logger.new(nil)
     MainCommand.run ["db", "drop", "create", "migrate"]
   end
 end

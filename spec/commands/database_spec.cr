@@ -2,10 +2,10 @@ require "../spec_helper"
 require "../cli_helper"
 require "../cli_fixtures"
 
-include CLIHelper
-include CLIFixtures
+include AmberCLIHelper
+include AmberCLIFixtures
 
-module CLI
+module AmberCLI
   describe "database" do
 
     ENV["AMBER_ENV"] = "test"
@@ -26,8 +26,8 @@ module CLI
         # it "does create the database when db migrate" do
         #   cleanup
         #   scaffold_app("#{TESTING_APP}", "-d", "sqlite")
-        #   CLI.env = "development"
-        #   CLI.settings.logger = Environment::Logger.new(nil)
+        #   AmberCLI.env = "development"
+        #   AmberCLI.settings.logger = Environment::Logger.new(nil)
         #   env_yml = prepare_test_app
         #   MainCommand.run ["generate", "model", "Post"]
         #   MainCommand.run ["db", "migrate"]

@@ -1,4 +1,4 @@
-module CLI
+module AmberCLI
   module MigrationSpecHelper
     def self.text_for(migration : Migration) : String
       migration_text = ""

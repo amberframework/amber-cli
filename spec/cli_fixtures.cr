@@ -1,4 +1,4 @@
-module CLIFixtures
+module AmberCLIFixtures
   def expected_animal_controller
     <<-CONT
     class AnimalController < ApplicationController

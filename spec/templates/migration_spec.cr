@@ -1,7 +1,7 @@
 require "../spec_helper"
 require "./migration_spec_helper"
 
-module CLI
+module AmberCLI
   describe Migration do
     migration = MigrationSpecHelper.sample_migration_for(Migration)
 

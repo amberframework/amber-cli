@@ -2,10 +2,10 @@ require "../spec_helper"
 require "../cli_helper"
 require "../cli_fixtures"
 
-include CLIHelper
-include CLIFixtures
+include AmberCLIHelper
+include AmberCLIFixtures
 
-module CLI
+module AmberCLI
   describe "amber generate" do
     camel_case = "PostComment"
     snake_case = "post_comment"

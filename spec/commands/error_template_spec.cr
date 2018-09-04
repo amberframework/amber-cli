@@ -2,9 +2,9 @@ require "../spec_helper"
 require "../generate_fixtures"
 require "../cli_helper"
 
-include CLIHelper
+include AmberCLIHelper
 
-module CLI
+module AmberCLI
   include Fixtures::CLI::Generate
   describe MainCommand::Generate do
     begin

@@ -2,9 +2,9 @@ require "../spec_helper"
 require "../cli_helper"
 require "environment/support/file_encryptor"
 
-include CLIHelper
+include AmberCLIHelper
 
-module CLI
+module AmberCLI
   describe "amber encrypt" do
     cleanup
     scaffold_app(TESTING_APP)

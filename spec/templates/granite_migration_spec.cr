@@ -1,7 +1,7 @@
 require "../spec_helper"
 require "./migration_spec_helper"
 
-module CLI
+module AmberCLI
   describe GraniteMigration do
     describe "#render" do
       context "when rendering a migration with an index for belongs_to" do

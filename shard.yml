@@ -1,8 +1,8 @@
-name: amber-cli
+name: amber_cli
 version: 0.1.0
 
 authors:
-  - Elias J. Perez <eperez@gmail.com>
+  - Amber Framework
 
 crystal: 0.26.0
 
