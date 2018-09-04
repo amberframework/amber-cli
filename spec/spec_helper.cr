@@ -14,7 +14,7 @@ TESTING_APP       = "./tmp/#{TEST_APP_NAME}"
 APP_TEMPLATE_PATH = "./src/amber/cli/templates/app"
 CURRENT_DIR       = Dir.current
 
-Amber::VERSION = "0.9.0"
+CLI::VERSION = "0.9.0"
 
 CLI.path = "./spec/config/"
 CLI.env=(ENV["AMBER_ENV"])

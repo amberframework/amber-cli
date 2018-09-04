@@ -13,12 +13,17 @@ targets:
     main: src/<%= @name %>.cr
 
   amber:
-    main: lib/amber/src/amber/cli.cr
+    main: lib/cli/src/run.cr
 
 dependencies:
   amber:
     github: amberframework/amber
-    #version: <%= Amber::VERSION %>
+    #version: <%= CLI::VERSION %>
+    branch: master
+
+  amber-cli:
+    github: amberframework/amber-cli
+    #version: <%= CLI::VERSION %>
     branch: master
 
 <% case @model when "crecto" -%>

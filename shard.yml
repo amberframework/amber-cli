@@ -10,7 +10,7 @@ license: MIT
 
 dependencies:
   environment:
-    github: eliasjpr/environment
+    github: amberframework/environment
     version: ~> 0.9.0
 
   cli:

@@ -46,7 +46,7 @@ module Amber::Recipes
       ctx.set "email", @email
       ctx.set "github_name", @github_name
       ctx.set "recipe", @recipe
-      ctx.set "amber_version", Amber::VERSION
+      ctx.set "amber_version", CLI::VERSION
       ctx.set "crystal_version", Crystal::VERSION
       ctx.set "urlsafe_base64", Random::Secure.urlsafe_base64(32)
     end
