@@ -2,23 +2,16 @@ require "./client_reload"
 require "http"
 
 module AmberCLI
-  # Reload clients browsers using `ClientReload`.
-  #
-  # NOTE: Amber::Pipe::Reload is intended for use in a development environment.
-  # ```
-  # pipeline :web do
-  #   plug Amber::Pipe::Reload.new
-  # end
-  # ```
   class ReloadHandler
     include HTTP::Handler
+    CONTENT_TYPE_HEADER = "Content-Type"
 
-    def initialize(@env : Amber::Environment::Env = Amber.env)
+    def initialize(@env : Environment::Env = Amber.env)
       ClientReload.run
     end
 
     def call(context : HTTP::Server::Context)
-      if @env.development? && context.format == "html"
+      if @env.development? && context.request.headers[CONTENT_TYPE_HEADER].downcase == "text/html"
         context.response.headers["Client-Reload"] = %(true)
       end
       call_next(context)

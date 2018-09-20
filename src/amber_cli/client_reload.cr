@@ -5,7 +5,8 @@ require "environment"
 
 module AmberCLI
   include Environment
-  # Used by `Amber::Pipe::Reload`
+
+  # Used by `ReloadHandler`
   #
   # Allow clients browser reloading using WebSockets and file watchers.
   struct ClientReload

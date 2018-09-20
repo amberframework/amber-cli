@@ -6,20 +6,19 @@ authors:
 
 crystal: <%= Crystal::VERSION %>
 
-license: UNLICENSED
+license: MIT
 
 targets:
   <%= @name %>:
     main: src/<%= @name %>.cr
 
   amber:
-    main: lib/cli/src/run.cr
+    main: ./lib/amber_cli/src/run.cr
 
 dependencies:
   amber:
     github: amberframework/amber
-    #version: <%= AmberCLI::VERSION %>
-    branch: master
+    version: <%= AmberCLI::VERSION %>
 
   amber-cli:
     github: amberframework/amber-cli
@@ -63,6 +62,10 @@ dependencies:
     version: 0.3.2
 
 development_dependencies:
- garnet_spec:
-   github: amberframework/garnet-spec
-   version: ~> 0.2.1
+  garnet_spec:
+    github: amberframework/garnet-spec
+    version: ~> 0.2.1
+
+  amber:
+    github: amberframework/amber_cli
+    version: <%= AmberCLI::VERSION %>
