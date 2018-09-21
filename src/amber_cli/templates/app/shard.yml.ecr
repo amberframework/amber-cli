@@ -20,11 +20,6 @@ dependencies:
     github: amberframework/amber
     version: <%= AmberCLI::VERSION %>
 
-  amber-cli:
-    github: amberframework/amber-cli
-    #version: <%= AmberCLI::VERSION %>
-    branch: master
-
 <% case @model when "crecto" -%>
   crecto:
     github: Crecto/crecto
@@ -66,6 +61,7 @@ development_dependencies:
     github: amberframework/garnet-spec
     version: ~> 0.2.1
 
-  amber:
-    github: amberframework/amber_cli
-    version: <%= AmberCLI::VERSION %>
+  amber_cli:
+    github: amberframework/amber-cli
+    #version: <%= AmberCLI::VERSION %>
+    branch: master
