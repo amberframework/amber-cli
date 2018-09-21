@@ -2,7 +2,7 @@ require "./client_reload"
 require "http"
 
 module AmberCLI
-  class ReloadHandler
+  class LiveReload
     include HTTP::Handler
     CONTENT_TYPE_HEADER = "Content-Type"
 
