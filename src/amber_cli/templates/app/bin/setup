@@ -1,0 +1,21 @@
+#!/bin/sh
+
+printf "\n▸ Installing shards\n"
+shards install
+
+printf "\n▸ Amber CLI is now in your path\n"
+if [ -n "./bin/amber" ]; then
+  cp ./lib/amber_cli/bin/amber ./bin/amber
+fi
+
+bin/amber -v
+
+printf "\n▸ Creating and Migrating the database\n"
+
+bin/amber db create migrate | indent
+
+printf "\n✔ All done."
+
+printf "Booting server."
+
+bin/amber w
