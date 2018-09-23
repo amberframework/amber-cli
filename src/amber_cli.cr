@@ -3,7 +3,6 @@ require "./amber_cli/main_command"
 require "./amber_cli/config"
 require "./amber_cli/file_watcher"
 require "./amber_cli/process_runner"
-require "./amber_cli/live_reload"
 
 module AmberCLI
   VERSION = "0.9.0"
