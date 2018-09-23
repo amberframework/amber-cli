@@ -71,7 +71,7 @@ development_dependencies:
     version: ~> 0.8.0
 
 scripts:
-  postinstall: make build
+  postinstall: shards build
 
 executables:
   - amber
