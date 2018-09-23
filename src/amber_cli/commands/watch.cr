@@ -26,7 +26,7 @@ module AmberCLI
           project_name = AmberCLI.settings.name.colorize(:light_cyan).to_s,
           host = AmberCLI.settings.host,
           port = AmberCLI.settings.port,
-          logger = AmberCLI.logger
+          logger = AmberCLI.settings.logger
         )
       end
     end
