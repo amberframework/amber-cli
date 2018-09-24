@@ -55,7 +55,7 @@ module AmberCLI
           when "create"
             Micrate.logger.info create_database
           when "seed"
-            ProcessRunner.run("crystal db/seeds.cr", shell: true).wait
+            ProcessRunner.run_process("crystal db/seeds.cr", shell: true).wait
             Micrate.logger.info "Seeded database"
           when "migrate"
             begin

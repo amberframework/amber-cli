@@ -8,6 +8,10 @@ crystal: 0.26.0
 
 license: MIT
 
+targets:
+  amber:
+    main: src/run.cr
+
 dependencies:
   environment:
     github: amberframework/environment
@@ -65,3 +69,9 @@ development_dependencies:
   ameba:
     github: veelenga/ameba
     version: ~> 0.8.0
+
+scripts:
+  postinstall: shards build
+
+executables:
+  - amber

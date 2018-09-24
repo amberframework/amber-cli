@@ -12,7 +12,7 @@ Amber::Server.configure do
     plug Amber::Pipe::CSRF.new
 
     # Reload clients browsers (development only)
-    plug AmberCLI::ReloadHandler.new if Amber.env.development?
+    plug LiveReload::Handler.new if Amber.env.development?
   end
 
   pipeline :api do

@@ -6,27 +6,31 @@ require "./error/server"
 module AmberCLI
   struct ProcessRunner
     PROCESSES = [] of {::Process, String}
-    CLI_IO = ::Process::Redirect::Inherit
+    CLI_IO    = ::Process::Redirect::Inherit
 
-    def self.run(command, shell = true, input = CLI_IO, output = CLI_IO, error = CLI_IO)
+    getter watch_config : Hash(String, Hash(String, Array(String))),
+      project_name : String,
+      host : String,
+      port : Int32,
+      logger : Logger
+
+    @watch_running = false
+    @wait_build = Channel(Bool).new
+    @server_files_changed = false
+    @notify_counter = 0
+    @notify_counter_channel = Channel(Int32).new
+    @notify_channel = Channel(Nil).new
+    @file_watcher : FileWatcher = FileWatcher.new
+
+    def self.run_process(command, shell = true, input = CLI_IO, output = CLI_IO, error = CLI_IO)
       ::Process.new(command, shell: shell, input: input, output: output, error: error)
     end
 
-    @host : String
-    @port : Int32
-    @file_watcher : FileWatcher
+    def self.run(watch_config, project_name, host, post, logger)
+      new(watch_config, project_name, host, post, logger).run
+    end
 
-    def initialize
-      @watch_running = false
-      @wait_build = Channel(Bool).new
-      @server_files_changed = false
-      @notify_counter = 0
-      @notify_counter_channel = Channel(Int32).new
-      @notify_channel = Channel(Nil).new
-      @host = AmberCLI.settings.host
-      @port = AmberCLI.settings.port
-      @file_watcher = FileWatcher.new
-
+    def initialize(@watch_config, @project_name, @host, @port, @logger)
       at_exit do
         kill_processes
       end
@@ -38,13 +42,7 @@ module AmberCLI
     end
 
     def run
-      if watch_config = AmberCLI.config.watch
-        run_watcher(watch_config)
-      else
-        warn "Can't find watch settings, do you want to add default watch settings? (y/n)"
-        AmberCLI.generate_config if gets.to_s.downcase == "y"
-        exit 1
-      end
+      run_watcher(watch_config)
     rescue ex : KeyError
       error "Error in watch configuration. #{ex.message}"
       exit 1
@@ -121,10 +119,10 @@ module AmberCLI
     private def run_build_command(command, commands)
       check_directories
       next_server_commands_range = (1...commands.size)
-      info "Building project #{AmberCLI.settings.name.colorize(:light_cyan)}"
+      info "Building project #{project_name}"
       spawn do
         error_io = IO::Memory.new
-        process = ProcessRunner.run(command, error: error_io)
+        process = ProcessRunner.run_process(command, error: error_io)
         PROCESSES << {process, "server"}
         loop do
           if process.terminated?
@@ -167,7 +165,7 @@ module AmberCLI
           build_sucess? = @wait_build.receive
           if build_sucess?
             error_io = IO::Memory.new
-            process = AmberCLI::ProcessRunner.run(command, error: error_io)
+            process = ProcessRunner.run_process(command, error: error_io)
             PROCESSES << {process, "server"}
             loop do
               if process.terminated?
@@ -181,9 +179,19 @@ module AmberCLI
           end
         end
       else
-        process = AmberCLI::ProcessRunner.run(command)
+        process = ProcessRunner.run_process(command)
         PROCESSES << {process, key}
       end
+    end
+
+    private def handle_error(error_output)
+      kill_processes("server")
+      puts error_output
+      new_error_server = ::Process.fork do
+        error_server(error_output).listen(@host, @port, reuse_port: true)
+      end
+      PROCESSES << {new_error_server, "server"}
+      error "A server error has been detected see the output above, use CTRL+C to exit"
     end
 
     private def kill_processes(key = nil)
@@ -206,30 +214,20 @@ module AmberCLI
       end
     end
 
-    private def handle_error(error_output)
-      kill_processes("server")
-      puts error_output
-      new_error_server = ::Process.fork do
-        error_server(error_output).listen(@host, @port, reuse_port: true)
-      end
-      PROCESSES << {new_error_server, "server"}
-      error "A server error has been detected see the output above, use CTRL+C to exit"
-    end
-
     private def debug(msg)
-      AmberCLI.logger.debug msg, "Watcher"
+      logger.debug msg, "Watcher"
     end
 
     private def info(msg)
-      AmberCLI.logger.info msg, "Watcher", :light_cyan
+      logger.info msg, "Watcher", :light_cyan
     end
 
     private def error(msg)
-      AmberCLI.logger.error msg, "Watcher", :red
+      logger.error msg, "Watcher", :red
     end
 
     private def warn(msg)
-      AmberCLI.logger.warn msg, "Watcher", :yellow
+      logger.warn msg, "Watcher", :yellow
     end
   end
 end

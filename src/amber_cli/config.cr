@@ -24,19 +24,21 @@ module AmberCLI
       model: {type: String, default: @model},
       recipe: String?,
       recipe_source: String?,
-      watch: {type: Watch, default: {
-        "server" => {
-          "files" => [
-            "src/**/*.cr",
-            "src/**/*.#{@language}",
-            "config/**/*.cr"
-          ],
-          "commands" => [
-            "shards build -p --no-color",
-            "bin/#{app_name}"
-          ]
-        }
-      }
-    })
+      watch: {
+        type:    Watch,
+        default: {
+          "server" => {
+            "files" => [
+              "src/**/*.cr",
+              "src/**/*.#{@language}",
+              "config/**/*.cr",
+            ],
+            "commands" => [
+              "shards build -p --no-color",
+              "bin/#{app_name}",
+            ],
+          },
+        },
+      })
   end
 end

@@ -53,7 +53,7 @@ module AmberCLI
           App.new(name, options.d, options.t, options.m).render(directory, list: true, color: true)
           if options.deps?
             info "Installing Dependencies"
-            ProcessRunner.run("cd #{name} && shards update").wait
+            ProcessRunner.run_process("cd #{name} && shards update").wait
           end
         end
       when "migration"
